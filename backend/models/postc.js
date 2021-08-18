@@ -4,6 +4,7 @@ const postcSchema = new mongoose.Schema({
   userId: { type: mongoose.Schema.ObjectId, ref: "user" },
   text: String,
   hashtag: String,
+  firma: String,
   date: { type: Date, default: Date.now },
   dbStatus: Boolean,
 });

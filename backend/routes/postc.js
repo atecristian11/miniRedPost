@@ -7,6 +7,6 @@ const ValidateUser = require("../middleware/validateUser");
 
 router.post("/postPerfil", Auth, ValidateUser, PostcController.postPerfil);
 
-router.get("/listPost/:text?", Auth, ValidateUser, PostcController.listPost);
+router.get("/listPost/:firma?", Auth, ValidateUser, PostcController.listPost);
 
 module.exports = router;
