@@ -1,5 +1,4 @@
 const Postc = require("../models/postc");
-const User = require("../models/user");
 
 const postPerfil = async (req, res) => {
   if (!req.body.text || !req.body.hashtag || !req.body.firma)
@@ -13,16 +12,22 @@ const postPerfil = async (req, res) => {
     dbStatus: true,
   });
 
-
   const result = await postc.save();
   if (!result)
     return res.status(400).send("Process failed: Failed to register post");
   return res.status(200).send({ result });
 };
 
+// const listPost = async (req, res) => {
+//   let postc = await Postc.find({ firma: new RegExp(req.params["firma"], "i") }).populate("userId").exec();
+//   if (!postc || postc.length === 0) return res.status(400).send("Process failed: No post");
+//   return res.status(200).send({ postc });
+// }; listar todas los post asi sean de otro usuario
+
 const listPost = async (req, res) => {
-  let postc = await Postc.find({ firma: new RegExp(req.params["firma"], "i") }).populate("userId").exec();
-  if (!postc || postc.length === 0) return res.status(401).send("No post");
+  const postc = await Postc.find({ userId: req.user._id });
+  if (!postc || postc.length === 0)
+    return res.status(400).send("Process failed: No post");
   return res.status(200).send({ postc });
 };
 
